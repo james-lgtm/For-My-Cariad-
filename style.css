@@ -1,0 +1,11 @@
+.slide .rose-corner {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: url('rose.png') no-repeat center/contain;
+  z-index: 10;
+}
+.rose-tl { top: -10px; left: -10px; }
+.rose-tr { top: -10px; right: -10px; transform: scaleX(-1); }
+.rose-bl { bottom: -10px; left: -10px; transform: scaleY(-1); }
+.rose-br { bottom: -10px; right: -10px; transform: scale(-1, -1); }

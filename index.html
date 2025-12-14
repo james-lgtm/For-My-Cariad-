@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday My Love ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Comic Sans MS', cursive;
+      background: url('your-background.jpg') repeat;
+      background-size: cover;
+      color: #0b0a0a;
+      text-align: center;
+    }
+
+    /* Opening overlay */
+    .envelope-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: pink;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: opacity 1.5s ease;
+      animation: bounceIn 1.5s ease;
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      60% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    /* Realistic Envelope */
+    .envelope {
+      position: relative;
+      width: 320px;
+      height: 210px;
+      background: #a0522d; /* brown envelope */
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .envelope .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-bottom: 105px solid #8b4513; /* darker brown flap */
+      transform-origin: top;
+      transition: transform 1.2s ease;
+      z-index: 3;
+    }
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+    .envelope .seal {
+      position: absolute;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      background: red;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255,0,0,0.7);
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      color: white;
+    }
+
+    @keyframes kissEffect {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+
+    .kiss {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+      animation: kissEffect 1.2s forwards;
+      z-index: 9999;
+    }
+
+    .envelope .letter-inside {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: top 1.5s ease;
+      z-index: 1;
+    }
+    .envelope.open .letter-inside {
+      top: 0;
+    }
+    .tap-text {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px rgba(0,0,0,0.6);
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Pigeons */
+    .pigeons {
+      font-size: 12vw;
+      display: none;
+      margin-top: 15px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Falling hearts */
+    .heart {
+      position: fixed;
+      top: -10vh;
+      color: red;
+      font-size: 20px;
+      animation: fall linear forwards;
+      z-index: 999;
+      text-shadow: 0 0 8px rgba(255, 0, 0, 0.7), 0 0 12px rgba(255, 100, 100, 0.6);
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    /* Letter box */
+    .letter {
+      background: rgba(255, 192, 203, 0.9);
+      border: 4px solid white;
+      border-radius: 20px;
+      padding: 15px;
+      margin: 15px auto;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      display: none;
+      animation: fadeIn 1.5s ease forwards, glowingBorder 3s infinite alternate;
+      position: relative;
+      z-index: 100;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes glowingBorder {
+      0% { box-shadow: 0 0 15px rgba(255,182,193,0.6), 0 0 25px rgba(255,105,180,0.6); }
+      100% { box-shadow: 0 0 30px rgba(255,182,193,1), 0 0 50px rgba(255,105,180,0.9); }
+    }
+
+    .letter h1 {
+      font-size: 7vw;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .letter p {
+      font-size: 4.5vw;
+      line-height: 1.6;
+      color: #fff;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+
+    @media (min-width: 768px) {
+      .letter h1 { font-size: 2.5em; }
+      .letter p { font-size: 1.3em; }
+    }
+
+    /* Slideshow */
+    .slideshow {
+      position: relative;
+      width: 95%;
+      max-width: 600px;
+      margin: 20px auto;
+      aspect-ratio: 1/1;
+      background: pink;
+      overflow: hidden;
+      border: 10px solid white; /* basic frame */
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255,105,180,0.7), 0 0 50px rgba(255,182,193,0.9);
+      display: none;
+      z-index: 100;
+      animation: glowingBorder 3s infinite alternate;
+    }
+
+    .slides {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Floating tulips */
+    .tulip {
+      position: fixed;
+      top: -10vh;
+      font-size: 24px;
+      animation: tulipFall linear forwards;
+      z-index: 500;
+    }
+    @keyframes tulipFall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    audio {
+      margin: 15px auto;
+      width: 90%;
+      max-width: 400px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Opening Screen -->
+  <div class="envelope-screen" id="envelopeScreen">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="seal">💋</div>
+      <div class="letter-inside"></div>
+    </div>
+    <div class="tap-text">Tap to Open</div>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="yellow2.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Envelope Paper Sound -->
+  <audio id="paperSound">
+    <source src="opening.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Pigeons with Love -->
+  <div class="pigeons" id="pigeons">🕊️❤️🕊️</div>
+
+  <!-- Letter Content -->
+  <div class="letter" id="letter">
+    <h1>💕Happy Birthday My Special Girl💕</h1>
+    <p id="typedText"></p>
+  </div>
+
+  <!-- Slideshow -->
+  <div class="slideshow" id="slideshow">
+    <img class="slides" src="photo1.jpeg">
+    <img class="slides" src="photo2.jpeg">
+    <img class="slides" src="photo3.jpeg">
+  </div>
+
+  <script>
+    const birthdayMessage = `To my dearest sweetheart,\n\nYou are the most beautiful part that is coming to my life. Every smile of yours makes my heart shine brighter than the stars. On this special day, I just want to remind you how much you mean to me. You’re my sunshine, my happiness, and my forever angel. 💖\n\nI hope this new age brings you endless joy, laughter, and love — just like the joy you bring into my life every single day. 💕 We've planned so many things.
+Excitedly, like teenagers just discovering feelings.
+Every day, there's something to talk about. From countless dreams to simple reminders to rest and eat.
+Then, when night falls, we stare at each other as if we're sleeping side by side, as if there's no distance between us.
+
+I want to be the author who tells this story, with you as the main character. You know, my favorite chapter is the one where you make me brave. Undaunted even when facing obstacles. My complaints become yours. Your sadness becomes mine. Healing each other, over and over again. Until I forget that taking too much medicine isn't a good thing either. I wish you the best forever after my lovely clumsy beautiful love - from your lover 7985 miles away`;
+
+    const envelopeScreen = document.getElementById("envelopeScreen");
+    const envelope = document.getElementById("envelope");
+    const letter = document.getElementById("letter");
+    const slideshow = document.getElementById("slideshow");
+    const music = document.getElementById("bgMusic");
+    const paperSound = document.getElementById("paperSound");
+    const pigeons = document.getElementById("pigeons");
+    const typedText = document.getElementById("typedText");
+
+    envelope.addEventListener("click", () => {
+      // Remove seal before opening
+      const seal = envelope.querySelector(".seal");
+      if (seal) {
+        seal.remove();
+      }
+
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          const kiss = document.createElement("div");
+          kiss.classList.add("kiss");
+          kiss.textContent = "💋";
+          kiss.style.left = (40 + Math.random() * 20) + "%";
+          kiss.style.top = (30 + Math.random() * 40) + "%";
+          envelopeScreen.appendChild(kiss);
+          setTimeout(() => kiss.remove(), 1200);
+        }, i * 300);
+      }
+
+      envelope.classList.add("open");
+      paperSound.play();
+      setTimeout(() => {
+        envelopeScreen.style.opacity = "0";
+        setTimeout(() => envelopeScreen.style.display = "none", 1500);
+        letter.style.display = "block";
+        slideshow.style.display = "block";
+        pigeons.style.display = "block";
+        music.style.display = "block";
+        music.play().catch(() => console.log("Autoplay blocked."));
+        typeWriterEffect(birthdayMessage, typedText, 40);
+        showSlides();
+      }, 2000);
+    });
+
+    function typeWriterEffect(text, element, speed) {
+      let i = 0;
+      function typing() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        }
+      }
+      typing();
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (15 + Math.random() * 20) + 'px';
+      heart.style.animationDuration = (3 + Math.random() * 5) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+    setInterval(createHeart, 600);
+
+    function createTulip() {
+      const tulip = document.createElement('div');
+      tulip.classList.add('tulip');
+      tulip.innerText = '🌷';
+      tulip.style.left = Math.random() * 100 + 'vw';
+      tulip.style.fontSize = (20 + Math.random() * 15) + 'px';
+      tulip.style.animationDuration = (4 + Math.random() * 4) + 's';
+      document.body.appendChild(tulip);
+      setTimeout(() => tulip.remove(), 8000);
+    }
+    setInterval(createTulip, 1000);
+
+    let slideIndex = 0;
+    function showSlides() {
+      let slides = document.getElementsByClassName("slides");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; }
+      slides[slideIndex-1].style.display = "block";
+      setTimeout(showSlides, 3000);
+    }
+  </script>
+</body>
+</html>
